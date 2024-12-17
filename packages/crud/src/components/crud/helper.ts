@@ -70,8 +70,8 @@ export function useHelper({ config, crud, mitt }: Options) {
 			}
 
 			// 渲染
-			function render(list: any[], pagination?: any) {
-				const res = { list, pagination };
+			function render(data: any | any[], pagination?: any) {
+				const res = isArray(data) ? { list: data, pagination } : data;
 				done();
 				success(res);
 				mitt.emit("crud.refresh", res);
@@ -87,12 +87,15 @@ export function useHelper({ config, crud, mitt }: Options) {
 							}
 
 							if (isArray(res)) {
-								render(res);
-							} else {
-								render(res.list, res.pagination);
+								res = {
+									list: res,
+									pagination: {
+										total: res.length
+									}
+								};
 							}
 
-							success(res);
+							render(res);
 							resolve(res);
 						})
 						.catch((err) => {

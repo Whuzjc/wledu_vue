@@ -1,3 +1,4 @@
+import Mitt from "mitt";
 // vue
 declare namespace Vue {
 	interface Ref<T = any> {
@@ -40,8 +41,8 @@ declare type obj = {
 declare type DeepPartial<T> = T extends Function
 	? T
 	: T extends object
-		? { [P in keyof T]?: DeepPartial<T[P]> }
-		: T;
+	  ? { [P in keyof T]?: DeepPartial<T[P]> }
+	  : T;
 
 // 合并
 declare type Merge<A, B> = Omit<A, keyof B> & B;
@@ -249,10 +250,7 @@ declare namespace ClCrud {
 			event: {
 				done: fn;
 				next: Service["api"]["page"];
-				render: (
-					list: Response["page"]["list"],
-					pagination?: Response["page"]["pagination"]
-				) => void;
+				render: (data: any | any[], pagination?: Response["page"]["pagination"]) => void;
 			}
 		): void;
 		onDelete(
@@ -266,6 +264,8 @@ declare namespace ClCrud {
 	interface Ref {
 		"cl-table": ClTable.Ref;
 		"cl-upsert": ClUpsert.Ref;
+		id: number;
+		mitt: Mitt;
 		name: string;
 		routePath: string;
 		permission: Permission;

@@ -49,15 +49,15 @@ import { ref } from 'vue';
 import { useCool } from '/@/cool';
 
 //【很重要】service 是所有请求的集合，是一个对象（刷新页面和保存代码会自动读取后端的所有接口）
-const { service } = useCool();
+const { service, route } = useCool();
 console.log('service', service);
 
 // cl-crud 配置
 const Crud = useCrud(
 	{
-		//【很重要】配置 service，如：service.demo.goods
-		// 不需要到具体的方法，如：service.demo.goods.page，这是错误的！
-		service: service.demo.goods
+		//【很重要】配置 service，如：service.base.sys.user
+		// 不需要到具体的方法，如：service.base.sys.user.page，这是错误的！
+		service: service.base.sys.user
 
 		// 自定义配置1，添加本地 service 文件。
 		// 【很重要】参考 /src/modules/demo/service/test.ts
@@ -83,7 +83,13 @@ const Crud = useCrud(
 		// }
 	},
 	app => {
+		// 首次调用刷新接口。在弹窗的情况下可以注释，用 Crud.value?.refresh() 方式手动调用
 		app.refresh();
+
+		// 带参数
+		// app.refresh({
+		// 	userId: route.query.id
+		// });
 	}
 );
 

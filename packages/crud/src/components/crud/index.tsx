@@ -55,7 +55,9 @@ export default defineComponent({
 					// 字典
 					dict: {},
 					// 权限
-					permission: {}
+					permission: {},
+					// 事件
+					mitt
 				},
 				cloneDeep({ dict, permission })
 			)
