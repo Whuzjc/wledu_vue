@@ -77,7 +77,9 @@
     function readFile(path, json) {
         try {
             const content = fs.readFileSync(path, "utf8");
-            return json ? JSON.parse(content) : content;
+            return json
+                ? JSON.parse(content.replace(/\/\/.*$/gm, "").replace(/\/\*[\s\S]*?\*\//g, ""))
+                : content;
         }
         catch (err) { }
         return "";
@@ -111,7 +113,7 @@
         console.log("\x1B[31m%s\x1B[0m", message);
     }
 
-    let service = {};
+    const service = {};
     let list = [];
     let customList = [];
     // 获取请求地址
@@ -533,7 +535,7 @@
 				<\/script>`);
                 return {
                     map: str().generateMap(),
-                    code: str().toString()
+                    code: str().toString(),
                 };
             }
         }

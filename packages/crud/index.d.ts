@@ -1,4 +1,3 @@
-import Mitt from "mitt";
 // vue
 declare namespace Vue {
 	interface Ref<T = any> {
@@ -10,12 +9,12 @@ declare namespace Vue {
 
 // element-plus
 declare namespace ElementPlus {
-	type Size = "large" | "default" | "small";
-	type Align = "left" | "center" | "right";
+	type Size = 'large' | 'default' | 'small';
+	type Align = 'left' | 'center' | 'right';
 
 	interface FormProps {
 		inline?: boolean;
-		labelPosition?: "left" | "right" | "top";
+		labelPosition?: 'left' | 'right' | 'top';
 		labelWidth?: string | number;
 		labelSuffix?: string;
 		hideRequiredAsterisk?: boolean;
@@ -27,6 +26,26 @@ declare namespace ElementPlus {
 		disabled?: boolean;
 		[key: string]: any;
 	}
+}
+
+// mitt
+declare interface Mitt {
+	on(name: string, callback: (data: any) => void): void;
+	off(name: string, callback: (data: any) => void): void;
+	emit(name: string, data?: any): void;
+}
+
+// emitter
+declare interface EmitterItem {
+	name: string;
+	callback(data: any, events: { refresh(params: any): void; crudList: ClCrud.Ref[] }): void;
+}
+
+declare interface Emitter {
+	list: EmitterItem[];
+	init(events: any): void;
+	on(name: string, callback: (data: any) => void): void;
+	emit(name: string, data?: any): void;
 }
 
 // 方法
@@ -41,8 +60,8 @@ declare type obj = {
 declare type DeepPartial<T> = T extends Function
 	? T
 	: T extends object
-	  ? { [P in keyof T]?: DeepPartial<T[P]> }
-	  : T;
+		? { [P in keyof T]?: DeepPartial<T[P]> }
+		: T;
 
 // 合并
 declare type Merge<A, B> = Omit<A, keyof B> & B;
@@ -55,6 +74,21 @@ declare type RemoveIndex<T> = {
 // 任用列表
 declare type List<T> = Array<DeepPartial<T> | (() => DeepPartial<T>)>;
 
+// 获取keys
+declare type PropKey<T> = keyof RemoveIndex<T> | (string & {});
+
+// 任意字符串
+declare type AnyString = string & {};
+
+// 类型或者 Ref 泛型
+declare type RefData<T = any> = T | Vue.Ref<T>;
+
+// browser
+declare type Browser = {
+	screen: string;
+	isMini: boolean;
+};
+
 // 字典选项
 declare type DictOptions = {
 	label?: string;
@@ -63,25 +97,6 @@ declare type DictOptions = {
 	type?: string;
 	[key: string]: any;
 }[];
-
-// emitter
-declare interface EmitterItem {
-	name: string;
-	callback(data: any, events: { refresh(params: any): void; crudList: ClCrud.Ref[] }): void;
-}
-
-declare interface Emitter {
-	list: EmitterItem[];
-	init(events: any): void;
-	emit(name: string, data?: any): void;
-	on(name: string, callback: (data: any) => void): void;
-}
-
-// browser
-declare type Browser = {
-	screen: string;
-	isMini: boolean;
-};
 
 // render
 declare namespace Render {
@@ -102,8 +117,8 @@ declare namespace Render {
 
 	interface Component {
 		name?: string;
-		options?: DictOptions | Vue.Ref<DictOptions>;
-		props?: Props | Vue.Ref<Props>;
+		options?: RefData<DictOptions>;
+		props?: RefData<Props>;
 		style?: obj;
 		slots?: {
 			[key: string]: (data?: any) => any;
@@ -113,12 +128,7 @@ declare namespace Render {
 	}
 }
 
-// 获取keys
-type PropKey<T> = keyof RemoveIndex<T> | (string & {});
-
-// 任意字符串
-type AnyString = string & {};
-
+// crud
 declare namespace ClCrud {
 	interface Label {
 		op: string;
@@ -230,51 +240,51 @@ declare namespace ClCrud {
 
 	interface Service {
 		api: {
-			page(params?: Params["page"]): Promise<Response["page"]>;
-			list(params?: Params["list"]): Promise<Response["list"]>;
-			add(params?: Params["add"]): Promise<Response["add"]>;
-			update(params?: Params["update"]): Promise<Response["update"]>;
-			info(params?: Params["info"]): Promise<Response["info"]>;
-			delete(params?: Params["delete"]): Promise<Response["delete"]>;
+			page(params?: Params['page']): Promise<Response['page']>;
+			list(params?: Params['list']): Promise<Response['list']>;
+			add(params?: Params['add']): Promise<Response['add']>;
+			update(params?: Params['update']): Promise<Response['update']>;
+			info(params?: Params['info']): Promise<Response['info']>;
+			delete(params?: Params['delete']): Promise<Response['delete']>;
 			[key: string]: (params?: any) => Promise<any>;
 		};
 	}
 
 	interface Config {
 		name: string;
-		service: Service["api"];
+		service: Service['api'];
 		permission: Permission;
 		dict: Dict;
 		onRefresh(
 			params: obj,
 			event: {
 				done: fn;
-				next: Service["api"]["page"];
-				render: (data: any | any[], pagination?: Response["page"]["pagination"]) => void;
+				next: Service['api']['page'];
+				render: (data: any | any[], pagination?: Response['page']['pagination']) => void;
 			}
 		): void;
 		onDelete(
 			selection: obj[],
 			event: {
-				next: Service["api"]["delete"];
+				next: Service['api']['delete'];
 			}
 		): void;
 	}
 
 	interface Ref {
-		"cl-table": ClTable.Ref;
-		"cl-upsert": ClUpsert.Ref;
+		'cl-table': ClTable.Ref;
+		'cl-upsert': ClUpsert.Ref;
 		id: number;
 		mitt: Mitt;
 		name: string;
 		routePath: string;
 		permission: Permission;
 		dict: Dict;
-		service: Service["api"];
+		service: Service['api'];
 		loading: boolean;
 		params: obj;
 		selection: obj[];
-		set(key: "dict" | "style" | "service" | "permission", value: any): void;
+		set(key: 'dict' | 'style' | 'service' | 'permission', value: any): void;
 		done(): void;
 		getParams(): obj;
 		getPermission(key?: string): boolean;
@@ -286,7 +296,7 @@ declare namespace ClCrud {
 		rowDelete(...selection: obj[]): void;
 		proxy(name: string, data?: any[]): any;
 		paramsReplace(params: obj): obj;
-		refresh: Service["api"]["page"];
+		refresh: Service['api']['page'];
 		[key: string]: any;
 	}
 
@@ -296,13 +306,13 @@ declare namespace ClCrud {
 }
 
 declare namespace ClTable {
-	type OpButton = Array<"info" | "edit" | "delete" | AnyString | Render.OpButton>;
+	type OpButton = Array<'info' | 'edit' | 'delete' | AnyString | Render.OpButton>;
 
-	type ColumnType = "index" | "selection" | "expand" | "op" | AnyString;
+	type ColumnType = 'index' | 'selection' | 'expand' | 'op' | AnyString;
 
 	interface Column<T = any> {
 		type: ColumnType;
-		hidden: boolean | Vue.Ref<boolean>;
+		hidden: RefData<boolean>;
 		component: Render.Component;
 		search: {
 			isInput: boolean;
@@ -310,7 +320,7 @@ declare namespace ClTable {
 			refreshOnChange: boolean;
 			component: Render.Component;
 		};
-		dict: DictOptions | Vue.Ref<DictOptions>;
+		dict: RefData<DictOptions>;
 		dictFormatter: (values: DictOptions) => string;
 		dictColor: boolean;
 		dictSeparator: string;
@@ -321,10 +331,10 @@ declare namespace ClTable {
 		className: string;
 		prop: PropKey<T>;
 		orderNum: number;
-		width: number;
-		minWidth: number | string;
+		width: RefData<number | string>;
+		minWidth: RefData<number | string>;
 		renderHeader: (options: { column: any; $index: number }) => any;
-		sortable: boolean | "desc" | "descending" | "ascending" | "asc" | "custom";
+		sortable: boolean | 'desc' | 'descending' | 'ascending' | 'asc' | 'custom';
 		sortMethod: fn;
 		sortBy: string | ((row: T, index: number) => any) | any[];
 		resizable: boolean;
@@ -349,14 +359,14 @@ declare namespace ClTable {
 	type ContextMenu = Array<
 		| ClContextMenu.Item
 		| ((row: obj, column: obj, event: PointerEvent) => ClContextMenu.Item)
-		| "refresh"
-		| "check"
-		| "update"
-		| "edit"
-		| "delete"
-		| "info"
-		| "order-desc"
-		| "order-asc"
+		| 'refresh'
+		| 'check'
+		| 'update'
+		| 'edit'
+		| 'delete'
+		| 'info'
+		| 'order-desc'
+		| 'order-asc'
 	>;
 
 	type Plugin = (options: { exposed: Ref }) => void;
@@ -368,7 +378,7 @@ declare namespace ClTable {
 		contextMenu: ContextMenu;
 		defaultSort: {
 			prop: string;
-			order: "descending" | "ascending";
+			order: 'descending' | 'ascending';
 		};
 		sortRefresh: boolean;
 		emptyText: string;
@@ -422,25 +432,25 @@ declare namespace ClFormTabs {
 }
 
 declare namespace ClForm {
-	type CloseAction = "close" | "save" | AnyString;
+	type CloseAction = 'close' | 'save' | AnyString;
 
 	interface Rule {
 		type?:
-			| "string"
-			| "number"
-			| "boolean"
-			| "method"
-			| "regexp"
-			| "integer"
-			| "float"
-			| "array"
-			| "object"
-			| "enum"
-			| "date"
-			| "url"
-			| "hex"
-			| "email"
-			| "any";
+			| 'string'
+			| 'number'
+			| 'boolean'
+			| 'method'
+			| 'regexp'
+			| 'integer'
+			| 'float'
+			| 'array'
+			| 'object'
+			| 'enum'
+			| 'date'
+			| 'url'
+			| 'hex'
+			| 'email'
+			| 'any';
 		required?: boolean;
 		message?: string;
 		min?: number;
@@ -452,37 +462,37 @@ declare namespace ClForm {
 
 	type HookFn = (
 		value: any,
-		options: { form: obj; prop: string; method: "submit" | "bind" }
+		options: { form: obj; prop: string; method: 'submit' | 'bind' }
 	) => any;
 
 	type HookKey =
-		| "number"
-		| "string"
-		| "split"
-		| "join"
-		| "boolean"
-		| "booleanNumber"
-		| "datetimeRange"
-		| "splitJoin"
-		| "json"
-		| "empty"
+		| 'number'
+		| 'string'
+		| 'split'
+		| 'join'
+		| 'boolean'
+		| 'booleanNumber'
+		| 'datetimeRange'
+		| 'splitJoin'
+		| 'json'
+		| 'empty'
 		| AnyString;
 
 	type HookPipe = HookKey | HookFn;
 
 	interface Item<T = any> {
-		type?: "tabs";
+		type?: 'tabs';
 		prop?: PropKey<T>;
 		props?: {
 			labels?: ClFormTabs.labels;
-			justify?: "left" | "center" | "right";
+			justify?: 'left' | 'center' | 'right';
 			color?: string;
 			mergeProp?: boolean;
 			labelWidth?: string;
 			error?: string;
 			showMessage?: boolean;
 			inlineMessage?: boolean;
-			size?: "medium" | "default" | "small";
+			size?: 'medium' | 'default' | 'small';
 			[key: string]: any;
 		};
 		span?: number;
@@ -538,7 +548,7 @@ declare namespace ClForm {
 			hidden?: boolean;
 			saveButtonText?: string;
 			closeButtonText?: string;
-			justify?: "flex-start" | "center" | "flex-end";
+			justify?: 'flex-start' | 'center' | 'flex-end';
 			buttons?: Array<CloseAction | Render.OpButton>;
 		};
 		dialog: {
@@ -546,7 +556,7 @@ declare namespace ClForm {
 			height?: string;
 			width?: string;
 			hideHeader?: boolean;
-			controls?: Array<"fullscreen" | "close" | AnyString>;
+			controls?: Array<'fullscreen' | 'close' | AnyString>;
 			[key: string]: any;
 		};
 		[key: string]: any;
@@ -609,26 +619,26 @@ declare namespace ClUpsert {
 	interface Config<T = any> {
 		sync: boolean;
 		items: ClForm.Item[];
-		props: ClForm.Config["props"];
-		op: ClForm.Config["op"];
-		dialog: ClForm.Config["dialog"];
+		props: ClForm.Config['props'];
+		op: ClForm.Config['op'];
+		dialog: ClForm.Config['dialog'];
 		onOpen?(): void;
 		onOpened?(data: T): void;
 		onClose?(action: ClForm.CloseAction, done: fn): void;
 		onClosed?(): void;
 		onInfo?(
 			data: T,
-			event: { close: fn; done(data: T): void; next: ClCrud.Service["api"]["info"] }
+			event: { close: fn; done(data: T): void; next: ClCrud.Service['api']['info'] }
 		): void;
 		onSubmit?(
 			data: T,
-			event: { close: fn; done: fn; next: ClCrud.Service["api"]["update"] }
+			event: { close: fn; done: fn; next: ClCrud.Service['api']['update'] }
 		): void;
 		plugins?: ClForm.Plugin[];
 	}
 
 	interface Ref<T = any> extends ClForm.Ref<T> {
-		mode: "add" | "update" | "info" | AnyString;
+		mode: 'add' | 'update' | 'info' | AnyString;
 	}
 
 	interface Options<T = any> extends DeepPartial<Config<T>> {
@@ -641,8 +651,8 @@ declare namespace ClAdvSearch {
 		items?: ClForm.Item[];
 		title?: string;
 		size?: string | number;
-		op?: ("clear" | "reset" | "close" | "search" | `slot-${string}`)[];
-		onSearch?(data: T, options: { next: ClCrud.Service["api"]["page"]; close(): void }): void;
+		op?: ('clear' | 'reset' | 'close' | 'search' | `slot-${string}`)[];
+		onSearch?(data: T, options: { next: ClCrud.Service['api']['page']; close(): void }): void;
 	}
 
 	interface Ref<T = any> extends ClForm.Ref<T> {}
@@ -662,7 +672,7 @@ declare namespace ClSearch {
 		Form?: ClForm.Ref;
 		onChange?(data: T, prop: string): void;
 		onLoad?(data: T): void;
-		onSearch?(data: T, options: { next: ClCrud.Service["api"]["page"] }): void;
+		onSearch?(data: T, options: { next: ClCrud.Service['api']['page'] }): void;
 	}
 
 	interface Ref<T = any> extends ClForm.Ref<T> {
@@ -733,8 +743,8 @@ declare interface Config {
 		size: ElementPlus.Size;
 		colors: string[];
 		form: {
-			labelPosition: ElementPlus.FormProps["labelPosition"];
-			labelWidth: ElementPlus.FormProps["labelWidth"];
+			labelPosition: ElementPlus.FormProps['labelPosition'];
+			labelWidth: ElementPlus.FormProps['labelWidth'];
 			span: number;
 			plugins: ClForm.Plugin[];
 		};

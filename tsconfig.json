@@ -8,8 +8,9 @@
 		"types": [
 			"element-plus/global",
 			"@cool-vue/vite-plugin/client",
-			"./build/cool/eps.d.ts",
-			"./env.d.ts"
+			"@cool-vue/crud/index",
+			"./build/cool/eps",
+			"./env"
 		],
 		"paths": {
 			"/@/*": ["./src/*"],

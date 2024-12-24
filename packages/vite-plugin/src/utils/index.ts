@@ -38,7 +38,9 @@ export function createDir(path: string, recursive?: boolean) {
 export function readFile(path: string, json?: boolean) {
 	try {
 		const content = fs.readFileSync(path, "utf8");
-		return json ? JSON.parse(content) : content;
+		return json
+			? JSON.parse(content.replace(/\/\/.*$/gm, "").replace(/\/\*[\s\S]*?\*\//g, ""))
+			: content;
 	} catch (err) {}
 
 	return "";
