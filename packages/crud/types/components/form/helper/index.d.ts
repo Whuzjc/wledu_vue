@@ -206,7 +206,7 @@ export declare function useForm(): {
             saveButtonText?: string | undefined;
             closeButtonText?: string | undefined;
             justify?: "center" | "flex-start" | "flex-end" | undefined;
-            buttons?: (ClForm.CloseAction | `slot-${string}` | {
+            buttons?: (`slot-${string}` | ClForm.CloseAction | {
                 [x: string]: any;
                 label: string;
                 type?: string | undefined;

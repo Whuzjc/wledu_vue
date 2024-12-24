@@ -82,7 +82,10 @@ export default defineComponent({
 						...params,
 						[selectField.value]: value.value || undefined,
 						...newParams
-					});
+					})
+						.catch(err => {
+							console.error(err);
+						})
 
 					loading.value = false;
 				}

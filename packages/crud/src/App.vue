@@ -1,11 +1,10 @@
 <template>
 	<div>
-		<div class="title">CRUD DEMO v7.0.0</div>
+		<div class="title">CRUD DEMO v7</div>
 
 		<cl-crud ref="Crud">
 			<cl-row>
 				<cl-add-btn />
-				<cl-adv-btn />
 
 				<cl-flex1 />
 
@@ -22,7 +21,7 @@
 						}
 					]"
 					refreshOnInput
-				></cl-search-key>
+				/>
 			</cl-row>
 
 			<cl-row>
@@ -35,12 +34,12 @@
 			</cl-row>
 
 			<cl-upsert ref="Upsert"></cl-upsert>
-			<cl-adv-search ref="AdvSearch"></cl-adv-search>
 		</cl-crud>
 	</div>
 </template>
 
 <script setup lang="tsx">
+import { computed } from "vue";
 import { useTable, useForm, useUpsert, useCrud } from "./hooks";
 import { EditPen } from "@element-plus/icons-vue";
 
@@ -103,54 +102,59 @@ const Upsert = useUpsert<Data>({
 	}
 });
 
-const Table = useTable<Data>({
-	contextMenu: [
-		{
-			label: "带图标",
-			prefixIcon: EditPen
-		},
-		{
-			label: "多层级",
-			children: [
-				{
-					label: "A",
-					children: [
-						{
-							label: "A-1"
-						}
-					]
-				},
-				{
-					label: "B"
-				}
-			]
-		}
-	],
+const Table = useTable<Data>(
+	{
+		contextMenu: [
+			{
+				label: "带图标",
+				prefixIcon: EditPen
+			},
+			{
+				label: "多层级",
+				children: [
+					{
+						label: "A",
+						children: [
+							{
+								label: "A-1"
+							}
+						]
+					},
+					{
+						label: "B"
+					}
+				]
+			}
+		],
 
-	columns: [
-		{
-			label: "姓名",
-			prop: "name",
-			search: {
-				component: {
-					name: "el-date-picker"
+		columns: [
+			{
+				label: "姓名",
+				prop: "name",
+				search: {
+					component: {
+						name: "el-date-picker"
+					}
 				}
-			}
-		},
-		{
-			label: "手机号",
-			prop: "phone",
-			search: {
-				component: {
-					name: "el-date-picker"
+			},
+			{
+				label: "手机号",
+				prop: "phone",
+				search: {
+					component: {
+						name: "el-date-picker"
+					}
 				}
+			},
+			{
+				type: "op"
 			}
-		},
-		{
-			type: "op"
-		}
-	]
-});
+		]
+	},
+	(table) => {
+		console.log(table);
+	}
+);
 
 const Crud = useCrud(
 	{

@@ -114,13 +114,17 @@ export declare function useTable(props: any): {
             className: string;
             prop: string & {};
             orderNum: number;
-            width: number;
-            minWidth: string | number;
+            width: string | number | {
+                value: string | number;
+            };
+            minWidth: string | number | {
+                value: string | number;
+            };
             renderHeader: (options: {
                 column: any;
                 $index: number;
             }) => any;
-            sortable: boolean | "asc" | "desc" | "custom" | "descending" | "ascending";
+            sortable: boolean | "asc" | "desc" | "descending" | "ascending" | "custom";
             sortMethod: fn;
             sortBy: string | any[] | ((row: any, index: number) => any);
             resizable: boolean;

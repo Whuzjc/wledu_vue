@@ -120,13 +120,21 @@ export function useUpsert<T = any>(options?: ClUpsert.Options<T>) {
 }
 
 // 表格
-export function useTable<T = any>(options?: ClTable.Options<T>) {
+export function useTable<T = any>(options?: ClTable.Options<T>, cb?: (table: ClTable.Ref) => void) {
 	const Table = ref<ClTable.Ref<T>>();
 	useParent("cl-table", Table);
 
 	if (options) {
 		provide("useTable__options", options);
 	}
+
+	watch(Table, (val) => {
+		if (val) {
+			if (cb) {
+				cb(val);
+			}
+		}
+	});
 
 	return Table;
 }

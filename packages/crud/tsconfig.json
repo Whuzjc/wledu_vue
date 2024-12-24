@@ -20,6 +20,6 @@
 		"paths": {},
 		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
 	},
-	"include": ["src/**/*.ts", "src/**/*.tsx"],
-	"exclude": ["node_modules", "src/demo/*", "src/main.ts", "src/components/*"]
+	"include": ["src"],
+	"exclude": ["node_modules", "src/main.ts"]
 }

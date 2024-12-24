@@ -6,7 +6,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         default: () => never[];
     };
     justify: {
-        type: PropType<"center" | "justify" | "left" | "right" | "start" | "end" | "match-parent">;
+        type: PropType<"center" | "left" | "right" | "justify" | "start" | "end" | "match-parent">;
         default: string;
     };
     type: {
@@ -20,7 +20,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         default: () => never[];
     };
     justify: {
-        type: PropType<"center" | "justify" | "left" | "right" | "start" | "end" | "match-parent">;
+        type: PropType<"center" | "left" | "right" | "justify" | "start" | "end" | "match-parent">;
         default: string;
     };
     type: {
@@ -33,6 +33,6 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
 }>, {
     type: "default" | "card";
     labels: unknown[];
-    justify: "center" | "justify" | "left" | "right" | "start" | "end" | "match-parent";
+    justify: "center" | "left" | "right" | "justify" | "start" | "end" | "match-parent";
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
 export default _default;
