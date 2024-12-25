@@ -2,7 +2,7 @@
 	<div class="scope">
 		<div class="h">
 			<el-tag size="small" effect="dark">event</el-tag>
-			<span>事件</span>
+			<span>打开、关闭、提交等事件</span>
 		</div>
 
 		<div class="c">

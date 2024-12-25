@@ -2,13 +2,13 @@
 	<div class="app-process">
 		<ul class="app-process__op">
 			<li class="item" @click="toBack">
-				<i class="cl-iconfont cl-icon-back"></i>
+				<cl-svg name="back" />
 			</li>
 			<li class="item" @click="toRefresh">
-				<i class="cl-iconfont cl-icon-refresh"></i>
+				<cl-svg name="refresh" />
 			</li>
 			<li class="item" @click="toHome">
-				<i class="cl-iconfont cl-icon-home"></i>
+				<cl-svg name="home" />
 			</li>
 		</ul>
 
@@ -24,7 +24,8 @@
 					@click="onTap(item, Number(index))"
 					@contextmenu.stop.prevent="openCM($event, item)"
 				>
-					<span>{{ item.meta?.label || item.name || item.path }}</span>
+					<el-text size="small">{{ item.meta?.label || item.name || item.path }}</el-text>
+
 					<el-icon @mousedown.stop="onDel(Number(index))">
 						<close-bold />
 					</el-icon>
@@ -163,43 +164,34 @@ onMounted(() => {
 .app-process {
 	display: flex;
 	align-items: center;
-	height: 30px;
 	position: relative;
-	margin: 0 0 10px 0;
-	padding: 0 10px;
+	padding: 5px 10px;
 	user-select: none;
+	background-color: var(--el-bg-color);
+	box-sizing: border-box;
+	margin-bottom: 10px;
 
 	&__op {
-		display: flex;
-		background-color: #fff;
-		height: 30px;
-		border-radius: 4px;
-		margin-right: 10px;
 		list-style: none;
+		margin-right: 5px;
 
 		.item {
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
 			position: relative;
-			padding: 0 10px;
-			color: #333;
+			height: 26px;
+			width: 26px;
 			cursor: pointer;
-			font-weight: bold;
+			border-radius: 4px;
+			margin-right: 5px;
 
-			&:not(:last-child)::after {
-				display: block;
-				content: '';
-				position: absolute;
-				right: 0;
-				top: calc(50% - 5px);
-				height: 10px;
-				width: 1px;
-				background-color: #eee;
+			.cl-svg {
+				font-size: 16px;
 			}
 
 			&:hover {
-				color: var(--el-color-primary);
+				background-color: var(--el-fill-color-light);
 			}
 		}
 	}
@@ -226,13 +218,11 @@ onMounted(() => {
 		border-radius: 4px;
 		height: 30px;
 		padding: 0 10px;
-		background-color: #fff;
-		font-size: 12px;
 		margin-right: 10px;
-		color: #909399;
 		cursor: pointer;
+		color: var(--el-color-info);
 
-		span {
+		.el-text {
 			line-height: 1;
 		}
 
@@ -240,12 +230,14 @@ onMounted(() => {
 			font-size: 13px;
 			width: 0;
 			overflow: hidden;
-			transition: all 0.3s;
-			color: #909399;
+			transition: width 0.3s;
 			opacity: 0;
+			border-radius: 20px;
+			padding: 2px;
 
 			&:hover {
-				color: #f56c6c !important;
+				background-color: rgba(0, 0, 0, 0.2);
+				color: #fff;
 			}
 		}
 
@@ -255,14 +247,14 @@ onMounted(() => {
 
 		&:hover {
 			&:not(.active) {
-				background-color: #eee;
+				background-color: var(--el-fill-color-light);
 			}
 		}
 
 		&.active {
 			background-color: var(--color-primary);
 
-			span {
+			.el-text {
 				color: #fff;
 			}
 

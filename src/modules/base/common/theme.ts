@@ -7,6 +7,3 @@ if (config.app.iconfont) {
 		createLink(e);
 	});
 }
-
-// 默认
-createLink('//at.alicdn.com/t/c/font_3254019_h02ghb7ckt5.css');

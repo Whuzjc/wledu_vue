@@ -2,7 +2,7 @@
 	<div class="scope">
 		<div class="h">
 			<el-tag size="small" effect="dark">mode</el-tag>
-			<span>不同模式</span>
+			<span>新增、编辑、详情模式</span>
 		</div>
 
 		<div class="c">

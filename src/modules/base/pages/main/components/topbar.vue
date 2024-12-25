@@ -2,14 +2,9 @@
 	<a-menu v-if="app.info.menu.isGroup" />
 
 	<div class="app-topbar">
-		<div
-			class="app-topbar__collapse"
-			:class="{
-				unfold: !app.isFold
-			}"
-			@click="app.fold()"
-		>
-			<i class="cl-iconfont cl-icon-fold"></i>
+		<div class="app-topbar__collapse" @click="app.fold()">
+			<cl-svg name="fold" v-if="app.isFold" />
+			<cl-svg name="expand" v-else />
 		</div>
 
 		<!-- 路由导航 -->
@@ -25,27 +20,41 @@
 		</ul>
 
 		<!-- 用户信息 -->
-		<div v-if="user.info" class="app-topbar__user">
-			<el-dropdown trigger="click" hide-on-click @command="onCommand">
-				<span class="el-dropdown-link">
-					<span class="name">{{ user.info.nickName }}</span>
-					<cl-avatar :size="32" :src="user.info.headImg" />
-				</span>
+		<template v-if="user.info">
+			<el-dropdown
+				hide-on-click
+				popper-class="app-topbar__user-popper"
+				:popper-options="{}"
+				@command="onCommand"
+			>
+				<div class="app-topbar__user">
+					<el-text class="name">{{ user.info.nickName }}</el-text>
+					<cl-avatar :size="28" :src="user.info.headImg" />
+				</div>
 
 				<template #dropdown>
+					<div class="user">
+						<cl-avatar :size="32" :src="user.info.headImg" />
+
+						<div class="det">
+							<el-text tag="p" size="small">{{ user.info.nickName }}</el-text>
+							<el-text size="small" type="info">{{ user.info.email }}</el-text>
+						</div>
+					</div>
+
 					<el-dropdown-menu>
 						<el-dropdown-item command="my">
-							<i class="cl-iconfont cl-icon-user"></i>
+							<cl-svg name="my" />
 							<span>个人中心</span>
 						</el-dropdown-item>
 						<el-dropdown-item command="exit">
-							<i class="cl-iconfont cl-icon-exit"></i>
-							<span>退出</span>
+							<cl-svg name="exit" />
+							<span>退出登录</span>
 						</el-dropdown-item>
 					</el-dropdown-menu>
 				</template>
 			</el-dropdown>
-		</div>
+		</template>
 	</div>
 </template>
 
@@ -124,24 +133,24 @@ onMounted(() => {
 	align-items: center;
 	height: 50px;
 	padding: 0 10px;
-	background-color: #fff;
-	margin-bottom: 10px;
+	background-color: var(--el-bg-color);
+	border-bottom: 1px solid var(--el-border-color-extra-light);
 
 	&__collapse {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 40px;
-		width: 40px;
+		height: 30px;
+		width: 30px;
 		cursor: pointer;
-		transform: rotateY(180deg);
+		border-radius: 4px;
 
-		&.unfold {
-			transform: rotateY(0);
+		.cl-svg {
+			font-size: 15px;
 		}
 
-		i {
-			font-size: 20px;
+		&:hover {
+			background-color: var(--el-color-info-light-9);
 		}
 	}
 
@@ -159,28 +168,54 @@ onMounted(() => {
 			align-items: center;
 			list-style: none;
 			height: 45px;
-			padding: 0 10px;
 			cursor: pointer;
 		}
 	}
 
 	&__user {
+		display: flex;
+		align-items: center;
+		outline: none;
 		margin-right: 10px;
 		cursor: pointer;
-
-		.el-dropdown-link {
-			display: flex;
-			align-items: center;
-		}
 
 		.name {
 			white-space: nowrap;
 			margin-right: 15px;
 		}
+	}
+}
+</style>
 
-		.el-icon-arrow-down {
+<style lang="scss">
+.app-topbar__user-popper {
+	border-radius: 6px;
+
+	.el-popper__arrow {
+		display: none;
+	}
+
+	.el-dropdown-menu__item {
+		padding: 6px 12px;
+		font-size: 12px;
+	}
+
+	.user {
+		display: flex;
+		align-items: center;
+		padding: 10px 10px;
+		width: 200px;
+		border-bottom: 1px solid var(--el-color-info-light-9);
+
+		.det {
 			margin-left: 10px;
+			flex: 1;
 		}
+	}
+
+	.cl-svg {
+		margin-right: 6px;
+		font-size: 14px;
 	}
 }
 </style>

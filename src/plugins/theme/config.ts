@@ -13,7 +13,8 @@ export default (): ModuleConfig => {
 		updateTime: '2024-07-22',
 
 		toolbar: {
-			component: import('./components/theme.vue')
+			component: import('./components/theme.vue'),
+			h5: false
 		},
 
 		options: {

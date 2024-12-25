@@ -47,17 +47,25 @@
 import { useCrud, useTable, useUpsert } from '@cool-vue/crud';
 import { ref } from 'vue';
 import { useCool } from '/@/cool';
+import { useDict } from '/$/dict';
 
 //【很重要】service 是所有请求的集合，是一个对象（刷新页面和保存代码会自动读取后端的所有接口）
 const { service, route } = useCool();
 console.log('service', service);
+
+const { dict } = useDict();
 
 // cl-crud 配置
 const Crud = useCrud(
 	{
 		//【很重要】配置 service，如：service.base.sys.user
 		// 不需要到具体的方法，如：service.base.sys.user.page，这是错误的！
-		service: service.base.sys.user
+
+		// 实际用法
+		// service: service.base.sys.user,
+
+		// 测试示例
+		service: 'test'
 
 		// 自定义配置1，添加本地 service 文件。
 		// 【很重要】参考 /src/modules/demo/service/test.ts
@@ -103,31 +111,20 @@ const Table = useTable({
 			type: 'selection'
 		},
 		{
-			label: '商品名称',
-			prop: 'title',
+			label: '姓名',
+			prop: 'name',
 			minWidth: 140
 		},
 		{
-			label: '价格',
-			prop: 'price',
+			label: '手机号',
+			prop: 'phone',
 			minWidth: 140
 		},
 		{
-			label: '主图',
-			prop: 'mainImage',
-			minWidth: 140,
-			component: {
-				name: 'cl-image',
-				props: {
-					size: 60
-				}
-			}
-		},
-		{
-			label: '描述',
-			prop: 'description',
-			minWidth: 200,
-			showOverflowTooltip: true
+			label: '工作',
+			prop: 'occupation',
+			dict: dict.get('occupation'),
+			minWidth: 140
 		},
 		{
 			label: '创建时间',
@@ -146,37 +143,28 @@ const Table = useTable({
 const Upsert = useUpsert({
 	items: [
 		{
-			label: '商品名称',
-			prop: 'title',
-			required: true,
+			label: '姓名',
+			prop: 'name',
 			component: {
 				name: 'el-input'
 			}
 		},
 		{
-			label: '价格',
-			prop: 'price',
-			required: true,
+			label: '手机号',
+			prop: 'phone',
 			component: {
-				name: 'el-input-number'
+				name: 'el-input'
 			}
 		},
 		{
-			label: '主图',
-			prop: 'mainImage',
-			required: true,
+			label: '工作',
+			prop: 'occupation',
 			component: {
-				name: 'cl-upload'
-			}
-		},
-		{
-			label: '描述',
-			prop: 'description',
-			component: {
-				name: 'el-input',
+				name: 'cl-select',
 				props: {
-					type: 'textarea',
-					rows: 4
+					tree: true,
+					checkStrictly: true,
+					options: dict.get('occupation')
 				}
 			}
 		}

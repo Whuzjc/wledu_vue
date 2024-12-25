@@ -1,8 +1,8 @@
 <template>
 	<div class="route-nav">
-		<p v-if="browser.isMini" class="route-nav__title">
+		<el-text tag="p" v-if="browser.isMini" class="route-nav__title">
 			{{ lastName }}
-		</p>
+		</el-text>
 
 		<template v-else>
 			<el-breadcrumb :separator-icon="ArrowRight">
@@ -52,16 +52,19 @@ const list = computed(() => {
 });
 
 // 最后一个节点名称
-const lastName = computed(() => last(list.value)?.name);
+const lastName = computed(() => last(list.value)?.meta?.label);
 </script>
 
 <style lang="scss" scoped>
 .route-nav {
 	white-space: nowrap;
-	font-size: 14px;
 
 	:deep(.el-breadcrumb) {
 		margin: 0 10px;
+
+		.el-breadcrumb__inner {
+			font-size: 13px;
+		}
 	}
 
 	&__title {

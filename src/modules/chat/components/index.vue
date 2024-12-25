@@ -1,6 +1,6 @@
 <template>
 	<div class="cl-chat__icon" @click="open">
-		<el-badge :value="unCount" :hidden="!unCount">
+		<el-badge is-dot>
 			<cl-svg name="icon-notice" :size="16" />
 		</el-badge>
 	</div>

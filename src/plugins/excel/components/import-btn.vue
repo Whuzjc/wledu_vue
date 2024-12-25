@@ -4,7 +4,7 @@
 	<cl-form ref="Form">
 		<template #slot-upload>
 			<div v-if="!upload.filename" class="upload">
-				<div class="tips">
+				<div class="tips" v-if="template">
 					<span>{{ tips }}</span>
 					<el-button type="primary" text bg @click="download">下载模版</el-button>
 				</div>
