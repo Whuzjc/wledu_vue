@@ -146,7 +146,7 @@ onMounted(() => {
 		border-radius: 4px;
 
 		.cl-svg {
-			font-size: 15px;
+			font-size: 14px;
 		}
 
 		&:hover {

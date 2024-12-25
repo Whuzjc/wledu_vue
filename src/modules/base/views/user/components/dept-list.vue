@@ -1,7 +1,7 @@
 <template>
 	<div class="dept-tree">
 		<div class="dept-tree__header">
-			<div>组织架构</div>
+			<el-text>组织架构</el-text>
 
 			<ul class="dept-tree__op">
 				<li @click="refresh()">
@@ -384,21 +384,10 @@ onMounted(function () {
 	&__header {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		height: 40px;
 		padding: 0 10px;
-		letter-spacing: 1px;
 		position: relative;
-
-		div {
-			font-size: 14px;
-			flex: 1;
-			white-space: nowrap;
-		}
-
-		i {
-			font-size: 18px;
-			cursor: pointer;
-		}
 	}
 
 	&__op {
@@ -412,9 +401,10 @@ onMounted(function () {
 			margin-left: 5px;
 			padding: 5px;
 			cursor: pointer;
+			border-radius: 4px;
 
 			&:not(.no):hover {
-				background-color: var(--el-fill-color-lighter);
+				background-color: var(--el-fill-color-light);
 			}
 		}
 	}

@@ -88,8 +88,8 @@ importers:
         version: 0.18.5
     devDependencies:
       '@cool-vue/vite-plugin':
-        specifier: ^7.2.4
-        version: 7.2.4
+        specifier: ^7.2.5
+        version: 7.2.5
       '@rushstack/eslint-patch':
         specifier: ^1.10.4
         version: 1.10.4
@@ -333,8 +333,8 @@ packages:
   '@cool-vue/crud@7.2.5':
     resolution: {integrity: sha512-+kvWAfz77jTDZqDfQPDsl2dzOeJs7TptOH/maBfwO3iyZcTaYBbcFEBpWG5vjaUeva8Fuo1rlmlr5q/OykuX7Q==}
 
-  '@cool-vue/vite-plugin@7.2.4':
-    resolution: {integrity: sha512-lRVoCHeOQ+ZYnpCbVtfTGafdQ/glpb9Nk4YydGseNjVoXLfeJBGkZx2xsHOt54fjlFQMWyi+k4Qo28Ymgigtsg==}
+  '@cool-vue/vite-plugin@7.2.5':
+    resolution: {integrity: sha512-2xMo11P+c7ugNxSPlH3mjBKL4OSfTb49iQlki+GwTzIBykbxG5bi0pt5k9qzkz29R0dOWHWjjGrT6RpNlYvzkg==}
 
   '@ctrl/tinycolor@3.6.1':
     resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
@@ -3296,7 +3296,7 @@ snapshots:
       - '@vue/composition-api'
       - typescript
 
-  '@cool-vue/vite-plugin@7.2.4':
+  '@cool-vue/vite-plugin@7.2.5':
     dependencies:
       '@vue/compiler-sfc': 3.5.13
       axios: 1.7.9

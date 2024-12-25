@@ -206,6 +206,10 @@ defineExpose({
 		justify-content: center;
 		width: 45px;
 
+		.el-badge {
+			display: flex;
+		}
+
 		&:hover {
 			color: var(--color-primary);
 		}

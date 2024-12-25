@@ -5,6 +5,10 @@
 		background-color: var(--el-bg-color);
 	}
 
+	:deep(.el-tabs__header) {
+		margin-bottom: 10px;
+	}
+
 	.scope {
 		border-radius: 8px;
 		margin-bottom: 10px;

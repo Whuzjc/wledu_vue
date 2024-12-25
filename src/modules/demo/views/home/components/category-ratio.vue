@@ -36,8 +36,7 @@ const chartOption = reactive({
 			emphasis: {
 				label: {
 					show: true,
-					fontSize: '30',
-					fontWeight: 'bold'
+					fontSize: 30
 				}
 			},
 			labelLine: {
@@ -52,7 +51,8 @@ const chartOption = reactive({
 			],
 			itemStyle: {
 				borderColor: '#fff',
-				borderWidth: 4
+				borderWidth: 4,
+				borderRadius: 4
 			},
 			roundCap: 1
 		}

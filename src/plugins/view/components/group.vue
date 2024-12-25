@@ -6,18 +6,19 @@
 				<slot name="left">
 					<div class="scope">
 						<div class="head">
-							<span>{{ config.label }}</span>
+							<el-text class="label">{{ config.label }}</el-text>
 
 							<el-tooltip v-if="config.enableRefresh" content="刷新">
-								<el-icon @click="refresh()">
+								<el-icon class="icon" @click="refresh()">
 									<icon-refresh />
 								</el-icon>
 							</el-tooltip>
 
 							<el-tooltip v-if="config.enableAdd" content="添加">
 								<el-icon
-									v-permission="config.service.permission.add"
+									class="icon"
 									@click="edit()"
+									v-permission="config.service.permission.add"
 								>
 									<plus />
 								</el-icon>
@@ -185,11 +186,13 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import { isEmpty, merge } from 'lodash-es';
 import { deepTree } from '/@/cool/utils';
 import { type ClViewGroup } from '../types/index.d';
+import { useClipboard } from '@vueuse/core';
 
 const { browser, onScreenChange } = useBrowser();
 const slots = useSlots();
 const Form = useForm();
 const { refs, setRefs } = useCool();
+const { copy } = useClipboard();
 
 // 配置
 const config = reactive(
@@ -429,6 +432,14 @@ function onContextMenu(e: any, item: ClViewGroup.Item) {
 		},
 		list: [
 			{
+				label: '复制Key',
+				callback(done) {
+					done();
+					copy(item.key);
+					ElMessage.success('复制成功');
+				}
+			},
+			{
 				label: '编辑',
 				hidden: !config.service._permission.update,
 				callback(done) {
@@ -479,6 +490,21 @@ defineExpose({
 	$left-width: v-bind('config.leftWidth');
 	$bg: var(--el-bg-color);
 
+	.icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		height: 26px;
+		width: 26px;
+		font-size: 16px;
+		border-radius: 4px;
+
+		&:hover {
+			background-color: var(--el-fill-color-light);
+		}
+	}
+
 	&__wrap {
 		display: flex;
 		height: 100%;
@@ -527,28 +553,25 @@ defineExpose({
 				font-size: 14px;
 				padding: 0 10px;
 
-				& > span {
-					&:nth-child(1) {
-						flex: 1;
-					}
+				.label {
+					flex: 1;
 				}
 
 				.el-icon {
-					padding: 5px;
-					font-size: 16px;
 					margin-left: 5px;
 					cursor: pointer;
-					border-radius: 4px;
-
-					&:hover {
-						background-color: var(--el-fill-color-lighter);
-					}
 				}
 			}
 
 			.search {
 				height: 40px;
 				padding: 0 10px;
+
+				:deep(.el-input__inner) {
+					&::placeholder {
+						font-size: 12px;
+					}
+				}
 			}
 
 			.data {
@@ -579,15 +602,16 @@ defineExpose({
 							align-items: center;
 							list-style: none;
 							box-sizing: border-box;
-							padding: 10px 35px 10px 10px;
+							padding: 10px 34px 10px 10px;
 							margin: 0 10px;
 							cursor: pointer;
-							font-size: 13px;
+							font-size: 12px;
 							margin-bottom: 10px;
 							border-radius: 4px;
-							color: #666;
+							color: var(--el-text-color-regular);
 							position: relative;
-							background-color: #f7f7f7;
+							background-color: var(--el-fill-color-lighter);
+							line-height: 1;
 
 							.arrow-right {
 								position: absolute;
@@ -640,16 +664,9 @@ defineExpose({
 			}
 
 			.icon {
-				display: flex;
-				align-items: center;
 				position: absolute;
-				left: 0;
-				top: 0;
-				font-size: 18px;
-				cursor: pointer;
-				height: 100%;
-				width: 80px;
-				padding-left: 10px;
+				left: 10px;
+				background-color: var(--el-fill-color-lighter);
 			}
 		}
 

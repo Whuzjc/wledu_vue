@@ -1,5 +1,5 @@
 <template>
-	<div class="cl-theme" @click="open">
+	<div class="cl-theme__icon" @click="open">
 		<el-badge type="primary" is-dot>
 			<cl-svg name="icon-discover" :size="16" />
 		</el-badge>
@@ -128,16 +128,6 @@ function setTransition(val: any) {
 
 <style lang="scss">
 .cl-theme {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
-	width: 45px;
-
-	&:hover {
-		color: var(--color-primary);
-	}
-
 	&-dark {
 		width: 45px;
 		margin-left: 10px;
@@ -177,16 +167,19 @@ function setTransition(val: any) {
 		}
 	}
 
-	&__drawer {
-		:deep(.el-form-item) {
-			background-color: #f7f7f7;
-			padding: 10px;
-			border-radius: 6px;
-			border: 1px solid var(--el-border-color);
+	&__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		width: 45px;
 
-			.el-form-item__label {
-				color: #000;
-			}
+		.el-badge {
+			display: flex;
+		}
+
+		&:hover {
+			color: var(--color-primary);
 		}
 	}
 }

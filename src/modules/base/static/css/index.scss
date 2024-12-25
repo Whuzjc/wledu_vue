@@ -5,7 +5,7 @@
 }
 
 :root {
-	--view-bg-color: #f7f7f7;
+	--view-bg-color: var(--el-fill-color-light);
 }
 
 a {

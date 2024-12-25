@@ -13,7 +13,7 @@ html.dark {
 	}
 
 	.cl-crud {
-		background-color: transparent !important;
+		background-color: transparent;
 
 		.el-table {
 			&__header {
@@ -37,43 +37,6 @@ html.dark {
 		}
 	}
 
-	.app-layout {
-		background-color: var(--el-bg-color) !important;
-
-		.a-menu {
-			.el-menu-item {
-				border-radius: 6px !important;
-			}
-		}
-
-		.app-topbar {
-			background-color: transparent;
-			color: #fff;
-
-			span {
-				color: #fff;
-			}
-
-			.el-breadcrumb {
-				span {
-					color: #ddd;
-				}
-
-				&__item {
-					&:last-child {
-						span {
-							color: #fff;
-						}
-					}
-				}
-			}
-		}
-
-		.app-views {
-			background-color: #2f3447;
-		}
-	}
-
 	.el-overlay {
 		background-size: 4px 4px;
 		backdrop-filter: saturate(50%) blur(4px);
@@ -83,20 +46,44 @@ html.dark {
 body.theme {
 	&-jihei {
 		.app-layout {
-			background-color: rgba(47, 52, 71, 0.9);
+			background-color: #3b3f4d;
+
+			.app-slider {
+				background-color: #2e313d;
+			}
 
 			.a-menu {
+				padding: 5px 10px;
+				background-color: transparent;
+				color: #fff;
+
 				.el-menu-item {
 					border-radius: 6px !important;
+					color: #fff;
+				}
+
+				.arc {
+					border-radius: 8px !important;
+
+					.cl-svg {
+						display: none;
+					}
 				}
 			}
 
 			.app-topbar {
 				background-color: transparent;
 				color: #fff;
+				border-bottom: 0;
 
 				span {
 					color: #fff;
+				}
+
+				&__collapse {
+					&:hover {
+						color: #333;
+					}
 				}
 
 				.el-breadcrumb {
@@ -109,6 +96,31 @@ body.theme {
 							span {
 								color: #fff;
 							}
+						}
+					}
+				}
+			}
+
+			.app-process {
+				background-color: transparent;
+				color: #fff;
+
+				&__item {
+					.el-text {
+						color: #fff;
+					}
+
+					&:not(.active):hover {
+						.el-text {
+							color: #333;
+						}
+					}
+				}
+
+				&__op {
+					.item {
+						&:hover {
+							color: #333;
 						}
 					}
 				}

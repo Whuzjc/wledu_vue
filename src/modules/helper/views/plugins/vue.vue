@@ -1,63 +1,59 @@
 <template>
 	<el-scrollbar class="plugins__wrapper">
 		<div class="plugins">
-			<div class="header">
-				<el-tabs v-model="tab.active" type="card" @tab-change="tab.onChange">
-					<el-tab-pane label="已安装插件" name="installed"> </el-tab-pane>
-					<el-tab-pane label="插件市场" name="shop"> </el-tab-pane>
-				</el-tabs>
-			</div>
+			<el-tabs v-model="tab.active" type="card" @tab-change="tab.onChange">
+				<el-tab-pane label="已安装插件" name="installed" />
+				<el-tab-pane label="插件市场" name="shop" />
+			</el-tabs>
 
-			<div class="container">
-				<el-row :gutter="10">
-					<el-col
-						v-for="(item, index) in list"
-						:key="index"
-						:xs="24"
-						:sm="12"
-						:md="8"
-						:lg="6"
-					>
-						<div class="scope">
-							<div class="c">
-								<img class="logo" :src="item.logo" />
+			<el-row :gutter="10">
+				<el-col
+					v-for="(item, index) in list"
+					:key="index"
+					:xs="24"
+					:sm="12"
+					:md="8"
+					:lg="6"
+				>
+					<div class="scope">
+						<div class="c">
+							<img class="logo" :src="item.logo" />
 
-								<div class="det">
-									<div class="tag">
-										<el-tag size="small" effect="dark">{{ item.name }}</el-tag>
-										<el-tag size="small" effect="dark" type="success"
-											>v{{ item.version || '1.0.0' }}</el-tag
-										>
-									</div>
+							<div class="det">
+								<div class="tag">
+									<el-tag size="small" effect="dark">{{ item.name }}</el-tag>
+									<el-tag size="small" effect="dark" type="success"
+										>v{{ item.version || '1.0.0' }}</el-tag
+									>
+								</div>
 
-									<p class="title">
-										{{ item.label || '未知' }}
-									</p>
+								<p class="title">
+									{{ item.label || '未知' }}
+								</p>
 
-									<p class="desc">
-										{{ item.description || '暂无描述' }}
-									</p>
+								<p class="desc">
+									{{ item.description || '暂无描述' }}
+								</p>
 
-									<div class="author">
-										<span>{{ item.author || 'Ta' }}：</span>
-										<span>{{ item.updateTime || '2024-01-01' }}</span>
-									</div>
+								<div class="author">
+									<span>{{ item.author || 'Ta' }}：</span>
+									<span>{{ item.updateTime || '2024-01-01' }}</span>
 								</div>
 							</div>
-
-							<div class="f">
-								<cl-flex1 />
-								<el-button
-									v-if="item.demo && !isEmpty(item.demo)"
-									round
-									@click="det.open(item)"
-									>示例</el-button
-								>
-							</div>
 						</div>
-					</el-col>
-				</el-row>
-			</div>
+
+						<div class="f">
+							<cl-flex1 />
+							<el-button
+								v-if="item.demo && !isEmpty(item.demo)"
+								round
+								@click="det.open(item)"
+								>示例</el-button
+							>
+						</div>
+					</div>
+				</el-col>
+			</el-row>
 
 			<cl-dialog v-model="det.visible" :title="det.title" width="60%">
 				<el-tabs v-model="det.active" type="card" @tab-change="tab.onChange">

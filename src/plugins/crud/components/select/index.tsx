@@ -29,7 +29,12 @@ export default defineComponent({
 		// 是否返回选中层级下的所有值
 		allLevelsId: Boolean,
 		// 是否父子不互相关联
-		checkStrictly: Boolean
+		checkStrictly: Boolean,
+		// 是否搜索
+		isSearch: {
+			type: Boolean,
+			default: true
+		}
 	},
 
 	emits: ['update:modelValue', 'change'],
@@ -81,7 +86,7 @@ export default defineComponent({
 			emit('update:modelValue', v);
 			emit('change', v);
 
-			if (props.prop && !props.scope) {
+			if (props.prop && props.isSearch) {
 				Crud.value?.refresh({ page: 1, [props.prop]: v });
 			}
 		}
@@ -93,7 +98,7 @@ export default defineComponent({
 			};
 
 			// 占位符
-			const placeholder = props.prop ? '选择搜索' : '请选择';
+			const placeholder = props.isSearch ? '全部' : '请选择';
 
 			// 树形下拉框
 			const TreeSelect = (

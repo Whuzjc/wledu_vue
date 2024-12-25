@@ -8,8 +8,13 @@
 		>
 			<template v-for="(item, index) in list" :key="item.id">
 				<el-menu-item :index="`${index}`">
-					<cl-svg v-if="item.icon" :name="item.icon" :size="18" />
-					<span class="a-menu__name">{{ item.meta?.label }}</span>
+					<cl-svg class="icon" :name="item.icon" :size="16" v-if="item.icon" />
+					<span class="label">{{ item.meta?.label }}</span>
+
+					<div class="arc">
+						<cl-svg name="arc" />
+						<cl-svg name="arc" />
+					</div>
 				</el-menu-item>
 			</template>
 		</el-menu>
@@ -104,11 +109,12 @@ watch(
 
 <style lang="scss" scoped>
 .a-menu {
-	margin: 5px 0 0 10px;
+	padding: 5px 0 0 15px;
+	background-color: var(--view-bg-color);
 
 	.el-menu {
-		height: 40px;
-		background: transparent;
+		height: 36px;
+		background-color: transparent;
 		border: 0;
 
 		:deep(.el-sub-menu__title) {
@@ -118,31 +124,66 @@ watch(
 		:deep(.el-menu-item) {
 			display: flex;
 			align-items: center;
-			height: 40px;
-			padding: 0 15px;
-			background: transparent;
+			height: 36px;
+			padding: 0 16px 0 14px;
 			border: 0;
-			color: #999;
+			color: var(--el-color-info);
+			position: relative;
+			background-color: transparent;
 
-			span {
+			.label {
 				font-size: 12px;
 				margin-left: 3px;
-				line-height: normal;
+				line-height: 1;
+			}
+
+			.icon {
+				margin-right: 5px;
+			}
+
+			.label,
+			.icon {
+				position: relative;
+				z-index: 2;
+			}
+
+			.arc {
+				pointer-events: none;
+				position: absolute;
+				left: 0;
+				top: 0;
+				height: 100%;
+				width: 100%;
+				opacity: 0;
+				border-radius: 8px 8px 0 0;
+
+				.cl-svg {
+					position: absolute;
+					bottom: 0;
+					color: var(--el-bg-color);
+
+					&:first-child {
+						left: -14px;
+						transform: scaleX(-1);
+					}
+
+					&:last-child {
+						right: -14px;
+					}
+				}
 			}
 
 			&:hover {
-				background: transparent;
+				// color: #000;
 			}
 
 			&.is-active {
 				color: var(--color-primary);
-				border-radius: 6px 6px 0 0;
-				background: #fff;
-				color: #000;
-			}
 
-			.cl-svg {
-				margin-right: 5px;
+				.arc {
+					background-color: var(--el-bg-color);
+					opacity: 1;
+				}
 			}
 		}
 	}

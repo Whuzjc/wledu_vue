@@ -217,7 +217,7 @@ onMounted(() => {
 		align-items: center;
 		border-radius: 4px;
 		height: 30px;
-		padding: 0 10px;
+		padding: 0 8px 0 12px;
 		margin-right: 10px;
 		cursor: pointer;
 		color: var(--el-color-info);

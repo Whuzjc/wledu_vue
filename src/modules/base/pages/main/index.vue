@@ -27,7 +27,7 @@ const { app } = useBase();
 <style lang="scss" scoped>
 .app-layout {
 	display: flex;
-	background-color: #f7f7f7;
+	background-color: var(--view-bg-color);
 	height: 100%;
 	width: 100%;
 	overflow: hidden;

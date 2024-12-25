@@ -386,27 +386,23 @@ onActivated(() => {
 <style lang="scss" scoped>
 .task-list {
 	height: 100%;
-	background-color: var(--el-bg-color-page);
 
 	.list {
 		display: flex;
 		flex-wrap: wrap;
-		padding: 10px 10px 0 10px;
-		box-sizing: border-box;
-		background-color: inherit;
 
 		.item {
 			background-color: var(--el-bg-color);
 			padding: 15px 20px 0 20px;
 			border-radius: 10px;
-			margin: 0 15px 15px 0;
+			margin: 0 10px 10px 0;
 			height: 200px;
 			width: 350px;
 			cursor: pointer;
 			box-sizing: border-box;
 
 			.name {
-				font-size: 17px;
+				font-size: 16px;
 				font-weight: bold;
 				margin-bottom: 10px;
 				overflow: hidden;
@@ -420,15 +416,11 @@ onActivated(() => {
 
 				span {
 					display: block;
+					font-size: 12px;
 
 					&:nth-child(1) {
-						font-size: 12px;
 						margin-bottom: 5px;
 						color: var(--el-color-info);
-					}
-
-					&:nth-child(2) {
-						font-size: 14px;
 					}
 				}
 			}
@@ -441,7 +433,7 @@ onActivated(() => {
 				height: 50px;
 
 				.el-icon {
-					font-size: 22px;
+					font-size: 16px;
 					cursor: pointer;
 					margin-left: 10px;
 					padding: 5px;
@@ -470,7 +462,7 @@ onActivated(() => {
 			}
 
 			&:hover {
-				background-color: var(--el-fill-color-lighter);
+				box-shadow: 0px 0px 10px 1px var(--el-color-info-light-9);
 			}
 
 			&.is-add {

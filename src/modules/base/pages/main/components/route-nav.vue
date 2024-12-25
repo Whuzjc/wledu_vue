@@ -63,7 +63,7 @@ const lastName = computed(() => last(list.value)?.meta?.label);
 		margin: 0 10px;
 
 		.el-breadcrumb__inner {
-			font-size: 13px;
+			font-size: 12px;
 		}
 	}
 
