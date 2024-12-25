@@ -13,52 +13,49 @@
 			<div class="form">
 				<el-form label-position="top" class="form" :disabled="saving">
 					<el-form-item label="用户名">
-						<input
+						<el-input
 							v-model="form.username"
 							placeholder="请输入用户名"
 							maxlength="20"
-							type="text"
-							:readonly="readonly"
-							autocomplete="off"
-							@focus="readonly = false"
 						/>
 					</el-form-item>
 
 					<el-form-item label="密码">
-						<input
+						<el-input
 							v-model="form.password"
 							type="password"
 							placeholder="请输入密码"
 							maxlength="20"
-							autocomplete="off"
+							show-password
+							autocomplete="new-password"
 						/>
 					</el-form-item>
 
 					<el-form-item label="验证码">
-						<div class="row">
-							<input
-								v-model="form.verifyCode"
-								placeholder="图片验证码"
-								maxlength="4"
-								@keyup.enter="toLogin"
-							/>
-
-							<pic-captcha
-								:ref="setRefs('picCaptcha')"
-								v-model="form.captchaId"
-								@change="
-									() => {
-										form.verifyCode = '';
-									}
-								"
-							/>
-						</div>
+						<el-input
+							v-model="form.verifyCode"
+							placeholder="图片验证码"
+							maxlength="4"
+							@keyup.enter="toLogin"
+						>
+							<template #suffix>
+								<pic-captcha
+									:ref="setRefs('picCaptcha')"
+									v-model="form.captchaId"
+									@change="
+										() => {
+											form.verifyCode = '';
+										}
+									"
+								/>
+							</template>
+						</el-input>
 					</el-form-item>
 
 					<div class="op">
-						<el-button type="primary" :loading="saving" @click="toLogin"
-							>登录</el-button
-						>
+						<el-button type="primary" :loading="saving" @click="toLogin">
+							登录
+						</el-button>
 					</div>
 				</el-form>
 			</div>
@@ -77,17 +74,14 @@ import { reactive, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import { useCool } from '/@/cool';
 import { useBase } from '/$/base';
-import PicCaptcha from './components/pic-captcha.vue';
 import { storage } from '/@/cool/utils';
+import PicCaptcha from './components/pic-captcha.vue';
 
-const { refs, setRefs, router, service, browser } = useCool();
+const { refs, setRefs, router, service } = useCool();
 const { user, app } = useBase();
 
 // 状态
 const saving = ref(false);
-
-// 避免自动填充
-const readonly = ref(!browser.isMini);
 
 // 表单数据
 const form = reactive({
@@ -263,41 +257,35 @@ $color: #2c3142;
 					padding-left: 5px;
 				}
 
-				input {
+				.el-input {
 					height: 45px;
 					width: 100%;
 					box-sizing: border-box;
-					font-size: 17px;
+					font-size: 15px;
 					border: 0;
 					border-radius: 0;
 					background-color: #f8f8f8;
-					padding: 0 15px;
+					padding: 0 5px;
 					border-radius: 6px;
 					position: relative;
+					box-shadow: none;
+
+					&__wrapper {
+						box-shadow: none;
+						background-color: transparent;
+					}
 
 					&:-webkit-autofill {
-						box-shadow: none;
 						-webkit-box-shadow: 0 0 0 1000px #f8f8f8 inset;
 						box-shadow: 0 0 0 1000px #f8f8f8 inset;
 					}
-
-					&::placeholder {
-						font-size: 14px;
-					}
 				}
+			}
 
-				.row {
-					display: flex;
-					align-items: center;
-					width: 100%;
-					position: relative;
-
-					.pic-captcha {
-						position: absolute;
-						right: 0;
-						top: 0;
-					}
-				}
+			:deep(.pic-captcha) {
+				position: absolute;
+				right: -5px;
+				top: 0;
 			}
 		}
 

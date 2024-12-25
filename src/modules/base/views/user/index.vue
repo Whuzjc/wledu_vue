@@ -205,7 +205,9 @@ const Upsert = useUpsert({
 				component: {
 					name: 'el-input',
 					props: {
-						type: 'password'
+						type: 'password',
+						showPassword: true,
+						autocomplete: 'new-password'
 					}
 				},
 				rules: [
