@@ -58,6 +58,7 @@ const lastName = computed(() => last(list.value)?.meta?.label);
 <style lang="scss" scoped>
 .route-nav {
 	white-space: nowrap;
+	user-select: none;
 
 	:deep(.el-breadcrumb) {
 		margin: 0 10px;

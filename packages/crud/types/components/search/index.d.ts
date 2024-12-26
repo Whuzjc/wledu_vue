@@ -21,6 +21,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         type: BooleanConstructor;
         default: boolean;
     };
+    collapse: BooleanConstructor;
     onLoad: FunctionConstructor;
     onSearch: FunctionConstructor;
 }>, () => any, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "reset"[], "reset", import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<{
@@ -44,6 +45,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         type: BooleanConstructor;
         default: boolean;
     };
+    collapse: BooleanConstructor;
     onLoad: FunctionConstructor;
     onSearch: FunctionConstructor;
 }>> & Readonly<{
@@ -54,5 +56,6 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
     inline: boolean;
     data: Record<string, any>;
     resetBtn: boolean;
+    collapse: boolean;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
 export default _default;

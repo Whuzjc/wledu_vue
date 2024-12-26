@@ -170,6 +170,30 @@
 			margin-left: 5px;
 		}
 	}
+
+	.cl-search__btns {
+		.el-button + .el-button {
+			margin-left: 10px;
+		}
+	}
+
+	&__more {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 5px 0;
+
+		.el-form-item {
+			margin-bottom: 0;
+		}
+	}
+
+	&.is-collapse {
+		.cl-search__form {
+			max-height: 84px;
+			overflow: hidden;
+		}
+	}
 }
 
 .cl-adv-btn {

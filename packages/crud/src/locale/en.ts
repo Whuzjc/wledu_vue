@@ -28,5 +28,7 @@ export default {
 	deselect: "Deselect",
 	seeMore: "See more",
 	hideContent: "Hide content",
-	nonEmpty: "Cannot be empty"
+	nonEmpty: "Cannot be empty",
+	collapse: "Collapse",
+	expand: "Expand"
 };

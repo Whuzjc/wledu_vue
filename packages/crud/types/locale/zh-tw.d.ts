@@ -28,5 +28,7 @@ declare const _default: {
     seeMore: string;
     hideContent: string;
     nonEmpty: string;
+    collapse: string;
+    expand: string;
 };
 export default _default;

@@ -27,5 +27,7 @@ export default {
 	deselect: "選択解除",
 	seeMore: "詳細を表示",
 	hideContent: "コンテンツを非表示",
-	nonEmpty: "空にできません"
+	nonEmpty: "空にできません",
+	collapse: "折り畳む",
+	expand: "展開"
 };

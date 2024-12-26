@@ -48,8 +48,9 @@
 								v-if="item.demo && !isEmpty(item.demo)"
 								round
 								@click="det.open(item)"
-								>示例</el-button
 							>
+								示例
+							</el-button>
 						</div>
 					</div>
 				</el-col>
@@ -74,7 +75,7 @@
 <script lang="ts" setup name="helper-plugins-vue">
 import { reactive, nextTick, markRaw } from 'vue';
 import { module, useCool } from '/@/cool';
-import { isEmpty, isFunction, isString } from 'lodash-es';
+import { isEmpty, isFunction, isString, startsWith } from 'lodash-es';
 
 const { router } = useCool();
 
@@ -117,7 +118,11 @@ const det = reactive({
 		det.active = 0;
 
 		if (isString(item.demo)) {
-			router.push(item.demo);
+			if (startsWith(item.demo, 'http')) {
+				window.open(item.demo);
+			} else {
+				router.push(item.demo);
+			}
 		} else {
 			det.visible = true;
 			det.title = item.label;

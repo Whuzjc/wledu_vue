@@ -1,4 +1,4 @@
-import { orderBy } from "lodash-es";
+import { assign, orderBy } from "lodash-es";
 import { uuid } from "../utils";
 
 const userList = [
@@ -160,7 +160,7 @@ class TestService {
 		const item = userList.find((e) => e.id == params.id);
 
 		if (item) {
-			Object.assign(item, params);
+			assign(item, params);
 		}
 	}
 

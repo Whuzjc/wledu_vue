@@ -1,5 +1,5 @@
 import { defineComponent, h, nextTick, toRef, watch } from "vue";
-import { cloneDeep, isBoolean } from "lodash-es";
+import { assign, cloneDeep, isBoolean, keys } from "lodash-es";
 import { useAction, useForm, usePlugins, useTabs } from "./helper";
 import { useBrowser, useConfig, useElApi, useRefs } from "../../hooks";
 import { getValue, merge } from "../../utils";
@@ -205,7 +205,7 @@ export default defineComponent({
 					Tabs.toGroup({
 						refs,
 						config,
-						prop: Object.keys(error)[0]
+						prop: keys(error)[0]
 					});
 				}
 			});
@@ -347,7 +347,7 @@ export default defineComponent({
 				deep(e);
 			});
 
-			Object.assign(form, data);
+			assign(form, data);
 		}
 
 		// 渲染表单项
@@ -575,9 +575,7 @@ export default defineComponent({
 							custom() {
 								return (
 									<el-button
-										text
 										type={e.type}
-										bg
 										{...e.props}
 										onClick={() => {
 											e.onClick({ scope: form });

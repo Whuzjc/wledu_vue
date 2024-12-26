@@ -3,28 +3,28 @@
 		<div class="dept-tree__header">
 			<el-text>组织架构</el-text>
 
-			<ul class="dept-tree__op">
-				<li @click="refresh()">
+			<div class="dept-tree__op">
+				<div class="item" @click="refresh()">
 					<el-tooltip content="刷新">
 						<el-icon>
 							<refresh-icon />
 						</el-icon>
 					</el-tooltip>
-				</li>
+				</div>
 
-				<li v-if="drag && !browser.isMini" @click="isDrag = true">
+				<div class="item" v-if="drag && !browser.isMini" @click="isDrag = true">
 					<el-tooltip content="拖动排序">
 						<el-icon>
 							<operation />
 						</el-icon>
 					</el-tooltip>
-				</li>
+				</div>
 
-				<li v-show="isDrag" class="no">
-					<el-button size="small" @click="treeOrder(true)">保存</el-button>
+				<div class="btns" v-show="isDrag">
+					<el-button type="success" size="small" @click="treeOrder(true)">保存</el-button>
 					<el-button size="small" @click="treeOrder(false)">取消</el-button>
-				</li>
-			</ul>
+				</div>
+			</div>
 		</div>
 
 		<div class="dept-tree__container" @contextmenu.stop.prevent="onContextMenu">
@@ -392,19 +392,30 @@ onMounted(function () {
 
 	&__op {
 		display: flex;
+		align-items: center;
 
-		li {
+		.item {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			list-style: none;
 			margin-left: 5px;
-			padding: 5px;
 			cursor: pointer;
 			border-radius: 4px;
+			font-size: 16px;
+			height: 26px;
+			width: 26px;
 
-			&:not(.no):hover {
+			&:hover {
 				background-color: var(--el-fill-color-light);
+			}
+		}
+
+		.btns {
+			margin-left: 10px;
+
+			.el-button + .el-button {
+				margin-left: 10px;
 			}
 		}
 	}

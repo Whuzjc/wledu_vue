@@ -9,6 +9,7 @@ export default (): ModuleConfig => {
 		author: 'COOL',
 		version: '1.0.0',
 		updateTime: '2024-07-22',
+		demo: 'https://echarts.apache.org/examples/zh/index.html',
 		install(app) {
 			app.component('v-chart', VueECharts);
 		}

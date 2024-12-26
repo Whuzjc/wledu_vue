@@ -1,6 +1,6 @@
 {
 	"name": "@cool-vue/crud",
-	"version": "7.2.5",
+	"version": "7.2.7",
 	"private": false,
 	"main": "./dist/index.umd.min.js",
 	"typings": "types/index.d.ts",
@@ -8,7 +8,7 @@
 		"dev": "vue-cli-service serve",
 		"build": "vue-cli-service build",
 		"tsc": "tsc --watch",
-		"dist": "tsc && yarn build --target lib --name index ./src/index.ts"
+		"dist": "tsc && pnpm build --target lib --name index ./src/index.ts"
 	},
 	"dependencies": {
 		"@element-plus/icons-vue": "^2.3.1",

@@ -160,6 +160,8 @@ declare namespace ClCrud {
 		seeMore: string;
 		hideContent: string;
 		nonEmpty: string;
+		collapse: string;
+		expand: string;
 		[key: string]: string;
 	}
 
@@ -669,6 +671,7 @@ declare namespace ClSearch {
 		data?: T;
 		props?: ElementPlus.FormProps;
 		resetBtn?: boolean;
+		collapse?: boolean;
 		Form?: ClForm.Ref;
 		onChange?(data: T, prop: string): void;
 		onLoad?(data: T): void;

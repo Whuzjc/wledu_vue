@@ -1,5 +1,5 @@
 <template>
-	<div class="app-layout" :class="{ collapse: app.isFold }">
+	<div class="app-layout" :class="{ collapse: app.isFold, full: app.isFull }">
 		<div class="app-layout__mask" @click="app.fold(true)"></div>
 
 		<div class="app-layout__left">
@@ -98,6 +98,23 @@ const { app } = useBase();
 
 			.app-layout__right {
 				width: calc(100% - 64px);
+			}
+		}
+	}
+
+	&.full {
+		.app-layout__left {
+			width: 0;
+		}
+
+		.app-layout__right {
+			width: 100%;
+
+			:deep(.a-menu),
+			:deep(.app-topbar) {
+				padding: 0;
+				height: 0;
+				overflow: hidden;
 			}
 		}
 	}

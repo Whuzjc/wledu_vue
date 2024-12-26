@@ -1,3 +1,4 @@
+import { assign } from "lodash-es";
 import { TestService } from "../test/service";
 import { watch, ref, nextTick, getCurrentInstance, Ref, inject, provide } from "vue";
 
@@ -107,7 +108,7 @@ export function useUpsert<T = any>(options?: ClUpsert.Options<T>) {
 						isChild
 					});
 
-					Object.assign(val.config, event);
+					assign(val.config, event);
 				}
 			}
 		},

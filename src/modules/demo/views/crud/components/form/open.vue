@@ -20,7 +20,7 @@
 	</div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 import { useForm } from '@cool-vue/crud';
 
 const Form = useForm();

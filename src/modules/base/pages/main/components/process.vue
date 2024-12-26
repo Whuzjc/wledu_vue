@@ -32,6 +32,13 @@
 				</div>
 			</el-scrollbar>
 		</div>
+
+		<ul class="app-process__op">
+			<li class="item" @click="toFull">
+				<cl-svg name="screen-normal" v-if="app.isFull" />
+				<cl-svg name="screen-full" v-else />
+			</li>
+		</ul>
 	</div>
 </template>
 
@@ -44,7 +51,7 @@ import { ContextMenu } from '@cool-vue/crud';
 import { useBase, type Process } from '/$/base';
 
 const { refs, setRefs, route, router, mitt } = useCool();
-const { process } = useBase();
+const { process, app } = useBase();
 
 // 刷新当前路由
 function toRefresh() {
@@ -59,6 +66,11 @@ function toHome() {
 // 返回上一页
 function toBack() {
 	router.back();
+}
+
+// 设置全屏
+function toFull() {
+	app.setFull(!app.isFull);
 }
 
 // 跳转
@@ -173,7 +185,6 @@ onMounted(() => {
 
 	&__op {
 		list-style: none;
-		margin-right: 5px;
 
 		.item {
 			display: inline-flex;
@@ -201,6 +212,7 @@ onMounted(() => {
 		flex: 1;
 		position: relative;
 		overflow: hidden;
+		margin: 0 5px;
 	}
 
 	&__scroller {

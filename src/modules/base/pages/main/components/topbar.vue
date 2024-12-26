@@ -135,6 +135,8 @@ onMounted(() => {
 	padding: 0 10px;
 	background-color: var(--el-bg-color);
 	border-bottom: 1px solid var(--el-border-color-extra-light);
+	box-sizing: border-box;
+	transition: height 0.2s ease-in-out;
 
 	&__collapse {
 		display: flex;
@@ -181,7 +183,7 @@ onMounted(() => {
 
 		.name {
 			white-space: nowrap;
-			margin-right: 15px;
+			margin-right: 10px;
 		}
 	}
 }

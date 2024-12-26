@@ -27,5 +27,7 @@ export default {
 	deselect: "取消选择",
 	seeMore: "查看更多",
 	hideContent: "隐藏内容",
-	nonEmpty: "不能为空"
+	nonEmpty: "不能为空",
+	collapse: "收起",
+	expand: "展开更多"
 };

@@ -27,6 +27,7 @@
 
 <script lang="ts" setup name="demo-crud">
 import { ref, onActivated } from 'vue';
+import { useCool } from '/@/cool';
 
 import CrudBase from './components/crud/base.vue';
 import CrudAll from './components/crud/all.vue';
@@ -72,6 +73,7 @@ import UpsertHook from './components/upsert/hook/index.vue';
 
 import SearchBase from './components/search/base.vue';
 import SearchCustom from './components/search/custom.vue';
+import SearchCollapse from './components/search/collapse.vue';
 import SearchLayout from './components/search/layout.vue';
 
 import AdvSearchBase from './components/adv-search/base.vue';
@@ -79,7 +81,6 @@ import AdvSearchCustom from './components/adv-search/custom.vue';
 
 import OtherTsx from './components/other/tsx';
 import OtherTips from './components/other/tips.vue';
-import { useCool } from '/@/cool';
 
 const { route, router } = useCool();
 
@@ -168,7 +169,7 @@ const list = [
 		children: [
 			{
 				label: '基础',
-				children: [SearchBase, SearchCustom, SearchLayout]
+				children: [SearchBase, SearchCustom, SearchCollapse, SearchLayout]
 			}
 		]
 	},

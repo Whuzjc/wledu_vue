@@ -29,6 +29,8 @@ export declare const locale: {
         seeMore: string;
         hideContent: string;
         nonEmpty: string;
+        collapse: string;
+        expand: string;
     };
     ja: {
         op: string;
@@ -60,6 +62,8 @@ export declare const locale: {
         seeMore: string;
         hideContent: string;
         nonEmpty: string;
+        collapse: string;
+        expand: string;
     };
     zhCn: {
         op: string;
@@ -91,6 +95,8 @@ export declare const locale: {
         seeMore: string;
         hideContent: string;
         nonEmpty: string;
+        collapse: string;
+        expand: string;
     };
     zhTw: {
         op: string;
@@ -122,5 +128,7 @@ export declare const locale: {
         seeMore: string;
         hideContent: string;
         nonEmpty: string;
+        collapse: string;
+        expand: string;
     };
 };

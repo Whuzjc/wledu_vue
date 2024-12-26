@@ -16,7 +16,6 @@
 				:options="data"
 				clearable
 				filterable
-				allow-create
 				@change="onPathChange"
 			/>
 

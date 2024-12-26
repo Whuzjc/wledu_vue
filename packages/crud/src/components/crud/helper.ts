@@ -1,7 +1,7 @@
 import { ElMessageBox, ElMessage } from "element-plus";
 import { Mitt } from "../../utils/mitt";
 import { ref } from "vue";
-import { isArray, isFunction } from "lodash-es";
+import { assign, isArray, isFunction } from "lodash-es";
 import { merge } from "../../utils";
 
 interface Options {
@@ -56,7 +56,7 @@ export function useHelper({ config, crud, mitt }: Options) {
 
 		return new Promise((success, error) => {
 			// 合并请求参数
-			const reqParams = paramsReplace(Object.assign(crud.params, params));
+			const reqParams = paramsReplace(assign(crud.params, params));
 
 			// Loading
 			crud.loading = true;

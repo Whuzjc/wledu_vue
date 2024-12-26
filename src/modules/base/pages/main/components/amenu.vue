@@ -111,9 +111,10 @@ watch(
 .a-menu {
 	padding: 5px 0 0 15px;
 	background-color: var(--view-bg-color);
+	height: 36px;
 
 	.el-menu {
-		height: 36px;
+		height: 100%;
 		background-color: transparent;
 		border: 0;
 

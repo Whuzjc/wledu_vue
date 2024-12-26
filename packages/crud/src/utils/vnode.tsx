@@ -128,15 +128,12 @@ export function renderNode(vnode: any, options: Options) {
 			let placeholder = "";
 
 			switch (item.component?.name) {
-				case "el-input":
-					placeholder = config.dict.label.placeholder;
-					break;
-
 				case "el-select":
 					placeholder = config.dict.label.placeholderSelect;
 					break;
 
 				default:
+					placeholder = config.dict.label.placeholder;
 					break;
 			}
 

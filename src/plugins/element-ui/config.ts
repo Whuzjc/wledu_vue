@@ -10,6 +10,7 @@ export default (): ModuleConfig => {
 		author: 'COOL',
 		version: '1.0.0',
 		updateTime: '2024-07-22',
+		demo: 'https://element-plus.org/zh-CN/component/overview.html',
 		install(app) {
 			app.use(ElementPlus);
 		}

@@ -1,5 +1,6 @@
 import { defineComponent, h, resolveComponent, ref, reactive, watch } from 'vue';
 import { isComponent } from '/@/cool/utils';
+import { assign } from 'lodash-es';
 
 export default defineComponent({
 	name: 'cl-editor',
@@ -17,7 +18,7 @@ export default defineComponent({
 
 		watch(Editor, v => {
 			if (v) {
-				Object.assign(ex, v);
+				assign(ex, v);
 			}
 		});
 

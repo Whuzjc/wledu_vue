@@ -1,5 +1,5 @@
 import { isRef, mergeProps } from "vue";
-import { flatMap, isArray, isFunction, isNumber, isString, mergeWith } from "lodash-es";
+import { assign, flatMap, isArray, isFunction, isNumber, isString, mergeWith } from "lodash-es";
 
 export function isObject(val: any) {
 	return val !== null && typeof val === "object";
@@ -49,7 +49,7 @@ export function dataset(obj: any, key: string, value: any): any {
 					return d[n];
 				} else {
 					if (isObject(value)) {
-						Object.assign(d[n], value);
+						assign(d[n], value);
 					} else {
 						d[n] = value;
 					}

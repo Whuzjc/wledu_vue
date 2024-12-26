@@ -1,5 +1,4 @@
-import { useConfig, useCore, useForm } from "../../hooks";
-import { isEmpty, keys } from "lodash-es";
+import { useConfig, useCore, useForm, useProxy, useRefs } from "../../hooks";
 import {
 	onMounted,
 	PropType,
@@ -9,10 +8,12 @@ import {
 	reactive,
 	inject,
 	mergeProps,
-	watch,
-	watchEffect
+	nextTick,
+	onUnmounted
 } from "vue";
 import { useApi } from "../form/helper";
+import { Search, Refresh, Bottom, Top } from "@element-plus/icons-vue";
+import { mitt } from "../../utils/mitt";
 
 export default defineComponent({
 	name: "cl-search",
@@ -24,7 +25,7 @@ export default defineComponent({
 		},
 		props: {
 			type: Object,
-			default: () => {}
+			default: () => { }
 		},
 
 		// 表单值
@@ -47,6 +48,9 @@ export default defineComponent({
 			default: false
 		},
 
+		// 是否需要折叠
+		collapse: Boolean,
+
 		// 初始化
 		onLoad: Function,
 
@@ -58,6 +62,7 @@ export default defineComponent({
 
 	setup(props, { slots, expose, emit }) {
 		const { crud } = useCore();
+		const { refs, setRefs } = useRefs()
 		const { style } = useConfig();
 
 		// 配置
@@ -70,6 +75,12 @@ export default defineComponent({
 
 		// 加载中
 		const loading = ref(false);
+
+		// 展开
+		const isExpand = ref(!config.collapse);
+
+		// 显示展开、收起按钮
+		const showExpandBtn = ref(false);
 
 		// 搜索
 		function search(params?: any) {
@@ -123,14 +134,43 @@ export default defineComponent({
 			emit("reset", d);
 		}
 
-		expose({
+		// 收起、展开
+		function expand() {
+			isExpand.value = !isExpand.value;
+
+			nextTick(() => {
+				crud?.["cl-table"].calcMaxHeight()
+			})
+		}
+
+		// 判断展开状态
+		function onExpand() {
+			if (config.collapse) {
+				const el = refs.form?.querySelector(".cl-form__items");
+
+				if (el) {
+					showExpandBtn.value = el.clientHeight > 84;
+				}
+			}
+		}
+
+		function onResize() {
+			onExpand();
+		}
+
+		const ctx = {
 			search,
 			reset,
 			Form,
+			config,
 			...useApi({ Form })
-		});
+		};
+
+		useProxy(ctx);
+		expose(ctx);
 
 		onMounted(() => {
+			// 打开表单
 			Form.value?.open({
 				op: {
 					hidden: true
@@ -141,18 +181,51 @@ export default defineComponent({
 				on: {
 					open(data) {
 						config.onLoad?.(data);
+						onExpand();
 					},
 					change(data, prop) {
 						config.onChange?.(data, prop);
 					}
 				}
 			});
+
+			mitt.on("resize", onResize);
 		});
 
+		onUnmounted(() => {
+			mitt.off("resize", onResize);
+		})
+
 		return () => {
+			const btnEl = (
+				<el-form-item label=" " class="cl-search__btns">
+					{/* 重置按钮 */}
+					{config.resetBtn && (
+						<el-button size={style.size} icon={Refresh} onClick={reset}>
+							{crud.dict.label.reset}
+						</el-button>
+					)}
+
+					{/* 搜索按钮 */}
+					<el-button
+						type="primary"
+						loading={loading.value}
+						size={style.size}
+						icon={Search}
+						onClick={() => {
+							search();
+						}}>
+						{crud.dict.label.search}
+					</el-button>
+
+					{/* 自定义按钮 */}
+					{slots?.buttons?.(Form.value?.form)}
+				</el-form-item>
+			);
+
 			return (
-				isEmpty(config.items) || (
-					<div class="cl-search">
+				<div class={["cl-search", isExpand.value ? "is-expand" : "is-collapse"]}>
+					<div class="cl-search__form" ref={setRefs("form")}>
 						{h(
 							<cl-form
 								ref={Form}
@@ -163,36 +236,28 @@ export default defineComponent({
 							{},
 							{
 								append() {
-									return (
-										<el-form-item label=" " class="cl-search__btns">
-											{/* 搜索按钮 */}
-											<el-button
-												type="primary"
-												loading={loading.value}
-												size={style.size}
-												onClick={() => {
-													search();
-												}}>
-												{crud.dict.label.search}
-											</el-button>
-
-											{/* 重置按钮 */}
-											{config.resetBtn && (
-												<el-button size={style.size} onClick={reset}>
-													{crud.dict.label.reset}
-												</el-button>
-											)}
-
-											{/* 自定义按钮 */}
-											{slots?.buttons?.(Form.value?.form)}
-										</el-form-item>
-									);
+									return config.collapse ? null : btnEl;
 								},
 								...slots
 							}
 						)}
 					</div>
-				)
+
+					{config.collapse && (
+						<div class="cl-search__more">
+							{showExpandBtn.value && (
+								<el-button onClick={expand}>
+									<span>{isExpand.value ? crud.dict.label.collapse : crud.dict.label.expand}</span>
+									<el-icon>{isExpand.value ? <Top /> : <Bottom />}</el-icon>
+								</el-button>
+							)}
+
+							<cl-flex1 />
+
+							{btnEl}
+						</div>
+					)}
+				</div>
 			);
 		};
 	}
