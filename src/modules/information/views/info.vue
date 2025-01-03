@@ -38,6 +38,7 @@
 import { useCrud, useTable, useUpsert } from "@cool-vue/crud";
 import { useCool } from "/@/cool";
 import { ElMessage } from 'element-plus';
+import Json from "../../base/components/code/json.vue";
 
 const { service } = useCool();
 
@@ -159,10 +160,29 @@ function refresh(params?: any) {
 // 	close();
 // 	ElMessage.success(`已提交${data.list.length}条数据`);
 // }
+const columMapping = {
+	录用时间:'date',
+	信息标题:'title',
+	信息链接:'hypertext',
+	报送单位:'reportUnit',
+	录用单位:'hireUnit',
+	录用栏目:'hireColumn',
+	录用分值:'score'
+}
 function onSubmit(data: any, { next, done, setProgress }) {
-    service.test
-      .add(data)
-      .then(() => {
+	//深拷贝data对象
+	const data2 = JSON.parse(JSON.stringify(data));
+
+	data.list = data2.list.map(item => {
+		return  Object.keys(item).reduce((obj , key) => {
+			const newKey = columMapping[key] || key;
+			obj[newKey] = item[key];
+			return obj;
+		},{});
+	});
+
+	service.information.info.add(data.list).then(() => {
+		console.log(data.list);
         ElMessage.success("导入成功");
         close();
       })
